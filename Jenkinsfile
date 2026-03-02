@@ -10,6 +10,9 @@ pipeline {
                     reuseNode true
                 }
             }
+            environment {
+                AWS_DEFAULT_REGION = 'ap-southeast-1'
+            }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws-alpha-23-jenkins-01', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
