@@ -16,8 +16,9 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws-alpha-23-jenkins-01', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
-                        aws s3 ls
-                        aws ecs register-task-definition --cli-input-json file://aws/aws-ecs-001-td-simple-app.json
+                        aws --version
+                        aws ecs register-task-definition --cli-input-json file://aws/aws-ecs-001-td-simple-app.json --query 'taskDefinition.revision' --output text
+                        aws ecs update-service --cluster jenkins-cluster-01 --service td-simple-app-service-jjmo321w --task-definition td-simple-app
                     '''
                 }
             }
