@@ -20,6 +20,7 @@ pipeline {
                 AWS_ECS_SERVICE = 'td-simple-app-service-jjmo321w'
                 AWS_ECS_TASK_DEFINITION = 'td-simple-app'
                 CREDENTIAL_ID = 'aws-alpha-23-jenkins-01'
+            }
             
             steps {
                 withCredentials([usernamePassword(credentialsId: '$CREDENTIAL_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
