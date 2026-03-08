@@ -23,7 +23,13 @@ pipeline {
             }
             
             steps {
-                withCredentials([usernamePassword(credentialsId: $CREDENTIAL_ID, passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: env.CREDENTIAL_ID,
+                        usernameVariable: 'AWS_ACCESS_KEY_ID',
+                        passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                    )
+                ]) {
                     sh '''
                         aws --version
                         TASK_DEFINITION_REVISION=$(aws ecs register-task-definition --cli-input-json file://aws/aws-ecs-001-td-simple-app.json --query 'taskDefinition.revision' --output text)
